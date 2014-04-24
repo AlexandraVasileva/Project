@@ -1,10 +1,12 @@
+package Frames;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
 import javax.swing.*;
 
-public class MenuLookDemo {
+public class Reader {
     JTextArea output;
     JScrollPane scrollPane;
     JButton button;
@@ -16,31 +18,20 @@ public class MenuLookDemo {
         JMenuBar menuBar = new JMenuBar();
  
         //BOOK DATA
-        JMenuItem menuBookData = new JMenu("Данные о книге");     
+        JButton menuBookData = new JButton("Данные о книге");     
         menuBookData.setMnemonic(KeyEvent.VK_A);
         
-//      DataAction dataAction = new DataAction();
-//      menuBookData.addActionListener(new DataEventListener());
-        menuBookData.addActionListener(new java.awt.event.ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        BookData.createAndShowGUI();
-                    }
-                });
-        	}
-        });
+        menuBookData.addActionListener(new ActionListeners.DataEventListener());
 
-        
         menuBar.add(menuBookData);
         
         //READING SETTINGS
-        JMenu menuReadSet = new JMenu("Настройки чтения");     
+        JButton menuReadSet = new JButton("Настройки чтения");     
         menuReadSet.setMnemonic(KeyEvent.VK_B);
         menuBar.add(menuReadSet);
         
         //BOOK TOOLS
-        JMenu menuBookTools = new JMenu("Инструменты книги");     
+        JMenu menuBookTools = new JMenu("Инструменты чтения");     
         menuBookTools.setMnemonic(KeyEvent.VK_C);
         menuBar.add(menuBookTools);
         
@@ -52,9 +43,9 @@ public class MenuLookDemo {
         
         menuBookTools.addSeparator();
         
-        JMenuItem menuItemSearch = new JMenuItem("Поиск по тексту");
+        JMenuItem menuItemSearch = new JMenuItem("Поиск по книге");
         menuItemSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.ALT_MASK));
-        menuItemSearch.addActionListener(new DataEventListener());
+        menuItemSearch.addActionListener(new ActionListeners.DataEventListener());
 
         
         menuBookTools.add(menuItemSearch);
@@ -94,13 +85,12 @@ public class MenuLookDemo {
     }
  
     public Container createContentPane() throws IOException {
-        //Create the content-pane-to-be.
+
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
  
-        //Create a scrolled text area.
         output = new JTextArea(5, 30);
-        output.setText(ReadTextFromFile.read("TextForReading.txt"));
+//        output.setText(ReadFromFile.ReadTextFromFile.read("TextForReading.txt"));
         output.setEditable(false);
         output.setLineWrap(true);
         scrollPane = new JScrollPane(output);
@@ -108,8 +98,6 @@ public class MenuLookDemo {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
- 
-        //Add the text area to the content pane.
         contentPane.add(scrollPane, BorderLayout.CENTER);
  
         return contentPane;
@@ -117,31 +105,16 @@ public class MenuLookDemo {
  
 
 
-    private static void createAndShowGUI() throws IOException {
-        //Create and set up the window.
-        JFrame frame = new JFrame("Текущая книга");
+    public static void createAndShowGUI() throws IOException {
+
+        JFrame frame = new JFrame("Лабиринт Мёнина");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
-        //Create and set up the content pane.
-        MenuLookDemo demo = new MenuLookDemo();
+        Reader demo = new Reader();
         frame.setJMenuBar(demo.createMenuBar());
         frame.setContentPane(demo.createContentPane());
         frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
- 
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-					createAndShowGUI();
-				} catch (IOException e) {
-					
-				}
-            }
-        });
-        
     }
 }
