@@ -1,3 +1,5 @@
+package GUI_for_reader;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

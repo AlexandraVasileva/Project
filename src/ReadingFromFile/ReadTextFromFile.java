@@ -1,6 +1,7 @@
+package ReadingFromFile;
+
 import java.io.*; 
-import javax.swing.text.rtf.*;
-import javax.swing.JEditorPane;
+
 public class ReadTextFromFile {
 	public static String read(String filename) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(filename));
