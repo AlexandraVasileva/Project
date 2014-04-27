@@ -21,14 +21,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-public class web {
+
+
+public class WorkWithWeb {
 	//проверка наличия интернет соединения(возвращает true если есть)
-	private static boolean checkInternetConnection() {
+	private boolean checkInternetConnection() {
 	    Boolean result = false;
 	    HttpURLConnection con = null;
 	    try {
-	        // HttpURLConnection.setFollowRedirects(false);
-	        // HttpURLConnection.setInstanceFollowRedirects(false)
 	        con = (HttpURLConnection) new URL("http://www.ya.ru").openConnection();
 	        con.setRequestMethod("HEAD");
 	        result = (con.getResponseCode() == HttpURLConnection.HTTP_OK);
@@ -50,7 +50,7 @@ public class web {
 	//на вход: язык оригинала, язык результата, текст
 	//возвращает строку с переводом
 
-	private static String Dictionary(String langFrom, String langTo, String word) throws IOException{
+	private String dictionary(String langFrom, String langTo, String word) throws IOException{
 				
 		 String apiKey = "dict.1.1.20140414T172607Z.6cad0b1fa8774b03.9d84439e1beec9dfeb458389b6fc158f5fcac873"; 
 	     String stringRequest = "https://dictionary.yandex.net/api/v1/dicservice/lookup?key="+apiKey + "&lang=" + langFrom+"-"+langTo+ "&text=" +URLEncoder.encode(word, "UTF-8");
@@ -101,10 +101,14 @@ public class web {
 		 }
 		 return result.toString();
 	}
+	
+	
+	
 		 //checking
 		 public static void main(String[] args) throws IOException {
-		   if(checkInternetConnection()){
-			   System.out.println(Dictionary("en", "ru", "happy"));
+			 WorkWithWeb workerWithWeb = new WorkWithWeb();
+		   if( workerWithWeb.checkInternetConnection()){
+			   System.out.println(workerWithWeb.dictionary("en", "ru", "happy"));
 		   }
 		   else{
 			   System.out.println("no Internet Connection");

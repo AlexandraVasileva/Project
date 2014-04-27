@@ -3,7 +3,7 @@ package ReadingFromFile;
 import java.io.*; 
 
 public class ReadTextFromFile {
-	public static String read(String filename) throws IOException{
+	private String read(String filename) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(filename));
 		    String s;
 		    StringBuilder sb = new StringBuilder();
@@ -18,11 +18,12 @@ public class ReadTextFromFile {
 	
 		 //checking
 		 public static void main(String[] args) throws IOException {
-		    System.out.print("I'm from txt:   " + read("TextForReading.txt"));
+			ReadTextFromFile reader = new ReadTextFromFile();
+		    System.out.print("I'm from txt:   " + reader.read("TextForReading.txt"));
 		    
 		    //It is stupid version
-		    System.out.print("I'm from fb2:   " + read("TextFb2.fb2"));
-		    System.out.print( read("text.rtf"));
+		    System.out.print("I'm from fb2:   " + reader.read("TextFb2.fb2"));
+		    System.out.print( reader.read("text.rtf"));
 		    
 		 }
 }  
