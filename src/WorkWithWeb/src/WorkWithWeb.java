@@ -1,5 +1,4 @@
 package WorkWithWeb.src;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
+import org.apache.http.*;
 
 public class WorkWithWeb {
 	//проверка наличия интернет соединения(возвращает true если есть)
@@ -110,27 +109,40 @@ public class WorkWithWeb {
 	private void SearchInfo(String forSearching){
 		
 		try {
-			uriGoogle = new URI(("http://www.google.com/search?q="+forSearching));
-			java.awt.Desktop.getDesktop().browse(uriGoogle);
-			
-			uriWiki = new URI(("http://ru.wikipedia.org/wiki/"+URLEncoder.encode(forSearching, "UTF-8")));
-			java.awt.Desktop.getDesktop().browse(uriWiki);
-			
-     
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpget = new HttpGet(("http://ru.wikipedia.org/wiki/"+URLEncoder.encode(forSearching, "UTF-8")));
+			CloseableHttpResponse response = httpclient.execute(httpget);
+			try{
+				StatusLine status = response.getStatusLine();
+				int st = status.getStatusCode();
+				if(st==404){
+					uriGoogle = new URI(("http://www.google.com/search?q="+forSearching));
+					java.awt.Desktop.getDesktop().browse(uriGoogle);
+				}
+				else{
+					uriWiki = new URI(("http://ru.wikipedia.org/wiki/"+URLEncoder.encode(forSearching, "UTF-8")));
+					java.awt.Desktop.getDesktop().browse(uriWiki);	
+				}
+							
+			}finally{
+				response.close();
+			}
+				    
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}  catch (URISyntaxException ex) {
 			ex.printStackTrace();
 		}
-    
+
 	}
 		 //checking
 		 public static void main(String[] args) throws IOException {
 			 WorkWithWeb workerWithWeb = new WorkWithWeb();
 		   if( workerWithWeb.checkInternetConnection()){
+			   
 			   System.out.println(workerWithWeb.dictionary("en", "ru", "happy"));
 			   
-			   workerWithWeb.SearchInfo("Джером");
+			   workerWithWeb.SearchInfo("Jesus");
 		   }
 		   else{
 			   System.out.println("no Internet Connection");
