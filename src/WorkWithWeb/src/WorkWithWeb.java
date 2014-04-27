@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -103,12 +105,32 @@ public class WorkWithWeb {
 	}
 	
 	
-	
+	java.net.URI uriGoogle;
+	java.net.URI uriWiki;
+	private void SearchInfo(String forSearching){
+		
+		try {
+			uriGoogle = new URI(("http://www.google.com/search?q="+forSearching));
+			java.awt.Desktop.getDesktop().browse(uriGoogle);
+			
+			uriWiki = new URI(("http://ru.wikipedia.org/wiki/"+URLEncoder.encode(forSearching, "UTF-8")));
+			java.awt.Desktop.getDesktop().browse(uriWiki);
+			
+     
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}  catch (URISyntaxException ex) {
+			ex.printStackTrace();
+		}
+    
+	}
 		 //checking
 		 public static void main(String[] args) throws IOException {
 			 WorkWithWeb workerWithWeb = new WorkWithWeb();
 		   if( workerWithWeb.checkInternetConnection()){
 			   System.out.println(workerWithWeb.dictionary("en", "ru", "happy"));
+			   
+			   workerWithWeb.SearchInfo("Джером");
 		   }
 		   else{
 			   System.out.println("no Internet Connection");
