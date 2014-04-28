@@ -18,5 +18,8 @@
 	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/WorkWithWeb/lib/lib/httpclient-cache-4.3.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/WorkWithWeb/lib/lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/WorkWithWeb/lib/lib/httpmime-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/ReadingFromFile/lib/libPDF/iText-2.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/ReadingFromFile/lib/libPDF/xml-apis-xerces-2.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Пользователь/Documents/GitHub/Project/src/ReadingFromFile/lib/pdfbox-1.8.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
