@@ -10,7 +10,9 @@ public class ToLibraryEventListener implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-					frames.LibraryFrame.createAndShowGUI();
+                	String[] temp = {"default", "default", "default"}; // sort by genre! "sf", "non-sf", "fantasy", ...
+                	frames.LibraryFrame.createAndShowGUI(temp);
+    				//frames.LibraryFrame.setList(temp);
 					frames.StartPage.frame.setVisible(false);
 				} catch (IOException e) {
 				}

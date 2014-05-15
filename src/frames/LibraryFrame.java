@@ -3,26 +3,39 @@ package frames;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.*;
 
 import javax.swing.*;
 
 import library.*;
+import books.*;
 
 public class LibraryFrame  extends JFrame{
     
 	private JScrollPane scrollPane;
-	private JList list;
+	public static JList list;
 	public static JFrame frame;
 	
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
 	
-	public Library temp = new Library();
+	public static int displayedType; // current displayed type
+	
+	public static Library temp = new Library();
+	public static ArrayList<Book> currentlist = new ArrayList<>();
 	
 	private String[] sortTypes = {"Жанр", "Автор", "Серия"};
-	public String[] justATest;
+	public static String[] justATest;
 	
-	public LibraryFrame() {
+	public static void setList(String[] newList){
+		justATest = newList;
+		list = new JList(justATest);
+		frame.repaint();
+	}
+	
+	public LibraryFrame(String[] defaultList) {
+		justATest = defaultList;
+		list = new JList(justATest);
 		frame = new JFrame("Библиотека");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -52,6 +65,10 @@ public class LibraryFrame  extends JFrame{
         toLibrary.addActionListener(new actionListeners.LibraryToStartEventListener());
         toLibrary.setBorderPainted(false);
         
+        JButton reset = new JButton("В корень библиотеки");
+        toLibrary.addActionListener(new actionListeners.LibraryToStartEventListener());
+        toLibrary.setBorderPainted(false);
+        
         JButton search = new JButton("Поиск");
         search.setBorderPainted(false);
 
@@ -72,9 +89,9 @@ public class LibraryFrame  extends JFrame{
         contentPane.setOpaque(true);
         
         temp.find("TestLibrary");
-        justATest = temp.listOfSmth(0, temp.getListOfBooks()).toArray(new String[0]);
-        System.out.print(justATest);
-        list = new JList(justATest);
+        
+        //System.out.print(justATest);
+        //list = new JList(justATest);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
@@ -93,7 +110,7 @@ public class LibraryFrame  extends JFrame{
         return contentPane;
     }
 
-    public static void createAndShowGUI() throws IOException {
-    	new LibraryFrame();
+    public static void createAndShowGUI(String[] defaultList) throws IOException {
+    	new LibraryFrame(defaultList);
     }
 }
