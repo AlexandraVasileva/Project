@@ -8,6 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 public class Reader  extends JFrame{
     
@@ -16,7 +19,7 @@ public class Reader  extends JFrame{
 	private int WIDTH = 1000;
 	private int HEIGHT = 500;
 	
-	public Reader() {
+	public Reader() throws ParserConfigurationException, SAXException {
 		frame = new JFrame("Текущая книга");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -103,7 +106,7 @@ public class Reader  extends JFrame{
     }
  
 
-    public static void createAndShowGUI() throws IOException {
+    public static void createAndShowGUI() throws IOException, ParserConfigurationException, SAXException {
     	new Reader();
     }
 }

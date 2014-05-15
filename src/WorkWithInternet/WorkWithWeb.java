@@ -53,7 +53,7 @@ public class WorkWithWeb {
 	//на вход: язык оригинала, язык результата, текст
 	//возвращает строку с переводом
 
-	private String dictionary(String langFrom, String langTo, String word) throws IOException{
+	public static String dictionary(String langFrom, String langTo, String word) throws IOException{
 				
 		 String apiKey = "dict.1.1.20140414T172607Z.6cad0b1fa8774b03.9d84439e1beec9dfeb458389b6fc158f5fcac873"; 
 	     String stringRequest = "https://dictionary.yandex.net/api/v1/dicservice/lookup?key="+apiKey + "&lang=" + langFrom+"-"+langTo+ "&text=" +URLEncoder.encode(word, "UTF-8");
@@ -106,9 +106,9 @@ public class WorkWithWeb {
 	}
 	
 	
-	java.net.URI uriGoogle;
-	java.net.URI uriWiki;
-	private void SearchInfo(String forSearching){
+	static java.net.URI uriGoogle;
+	static java.net.URI uriWiki;
+	public static void SearchInfo(String forSearching){
 		
 		try {
 			CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -137,7 +137,7 @@ public class WorkWithWeb {
 		}
 
 	}
-	/*	 //checking
+/*		 //checking
 		 public static void main(String[] args) throws IOException {
 			 WorkWithWeb workerWithWeb = new WorkWithWeb();
 		   if( workerWithWeb.checkInternetConnection()){
@@ -151,7 +151,7 @@ public class WorkWithWeb {
 		   }
 		   
 		 }
-		 */
+	*/	 
 }  
 
 

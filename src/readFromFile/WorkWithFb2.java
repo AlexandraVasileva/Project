@@ -10,7 +10,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -107,43 +106,28 @@ public class WorkWithFb2{
 		return title;
 	}
 	
-	
-	
-	
-	
-	private String getFieldFromBook(String path) throws IOException, ParserConfigurationException, SAXException{
-		String s="";
-		try{
-			File fXmlFile = new File(path);
+	public static String setDeclaration(String path) throws SAXException, IOException, ParserConfigurationException{
+		String declaration= "";
+		try
+		{	File fXmlFile = new File(path);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
-			Node  description = doc.getElementsByTagName("description").item(0);
-			Node title_info =doc.getElementsByTagName("title-info").item(0);
-			NodeList genreList = doc.getElementsByTagName("");
-			for (int temp = 0; temp < genreList.getLength(); temp++) {
-				
-			}
-			
-			
-			System.out.println("\nCurrent Element :" + title_info.getNodeName());
-			
-		
-			
+			declaration = doc.getXmlEncoding();
+		//	doc.getXmlEncoding()
 		}catch (IOException ex) {
 			ex.printStackTrace();
-		}
-		return s;
-
+		}	
+		return declaration;
+	
 	}
 	
-	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-		WorkWithFb2 worker = new WorkWithFb2();
-		System.out.println(( worker.setGenre("Onegin.fb2")));
-		System.out.println(( worker.setAuthor("Onegin.fb2")));
-		System.out.println(( worker.setTitle("Onegin.fb2")));
-		
 	
-	   
-	 }
+//	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+	//	WorkWithFb2 worker = new WorkWithFb2();
+		//System.out.println(( worker.setGenre("Onegin.fb2")));
+		//System.out.println(( worker.setAuthor("Onegin.fb2")));
+		//System.out.println(( worker.setTitle("Onegin.fb2")));
+
+	///}
 }
