@@ -1,17 +1,35 @@
-package Frames;
+package frames;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.*;
 
-public class Reader {
-    JTextArea output;
-    JScrollPane scrollPane;
-    JButton button;
-    static int WIDTH = 1000;
-    static int HEIGHT = 500;
+public class Reader  extends JFrame{
+    
+	public static JFrame frame;
+	
+	private int WIDTH = 1000;
+	private int HEIGHT = 500;
+	
+	public Reader() {
+		frame = new JFrame("Текущая книга");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setJMenuBar(createMenuBar());
+		try {
+			frame.setContentPane(frames.ReaderContentPane.createContentPane());
+		} catch (IOException e) {
+		}
+		frame.setSize(WIDTH, HEIGHT);
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
  
     public JMenuBar createMenuBar() {
         
@@ -21,13 +39,14 @@ public class Reader {
         JButton menuBookData = new JButton("Данные о книге");     
         menuBookData.setMnemonic(KeyEvent.VK_A);
         
-        menuBookData.addActionListener(new ActionListeners.DataEventListener());
+        menuBookData.addActionListener(new actionListeners.DataEventListener());
 
         menuBar.add(menuBookData);
         
         //READING SETTINGS
         JButton menuReadSet = new JButton("Настройки чтения");     
         menuReadSet.setMnemonic(KeyEvent.VK_B);
+        menuReadSet.addActionListener(new actionListeners.ReadSettingsEventListener());
         menuBar.add(menuReadSet);
         
         //BOOK TOOLS
@@ -45,7 +64,7 @@ public class Reader {
         
         JMenuItem menuItemSearch = new JMenuItem("Поиск по книге");
         menuItemSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.ALT_MASK));
-        menuItemSearch.addActionListener(new ActionListeners.DataEventListener());
+        menuItemSearch.addActionListener(new actionListeners.TextSearchEventListener());
 
         
         menuBookTools.add(menuItemSearch);
@@ -63,14 +82,12 @@ public class Reader {
         
         JMenuItem menuItemBookmarkGo = new JMenuItem("Перейти к закладке...");
         menuBookNav.add(menuItemBookmarkGo);
+        menuItemBookmarkGo.addActionListener(new actionListeners.GoToMarkEventListener());
         
         //LIBRARY NAVIGATION
         JMenu menuLibNav = new JMenu("Навигация по библиотеке");     
         menuLibNav.setMnemonic(KeyEvent.VK_E);
         menuBar.add(menuLibNav);
-        
-        JMenuItem menuItemBack = new JMenuItem("Назад");
-        menuLibNav.add(menuItemBack);
         
         JMenuItem menuItemAuthor = new JMenuItem("В папку автора");
         menuLibNav.add(menuItemAuthor);
@@ -79,42 +96,14 @@ public class Reader {
         menuLibNav.add(menuItemLib);
         
         JMenuItem menuItemStart = new JMenuItem("На стартовую страницу");
+        menuItemStart.addActionListener(new actionListeners.ReaderToStartEventListener());
         menuLibNav.add(menuItemStart);
  
         return menuBar;
     }
  
-    public Container createContentPane() throws IOException {
-
-        JPanel contentPane = new JPanel(new BorderLayout());
-        contentPane.setOpaque(true);
- 
-        output = new JTextArea(5, 30);
-//        output.setText(ReadFromFile.ReadTextFromFile.read("TextForReading.txt"));
-        output.setEditable(false);
-        output.setLineWrap(true);
-        scrollPane = new JScrollPane(output);
-        scrollPane.setSize(WIDTH, HEIGHT);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
-        contentPane.add(scrollPane, BorderLayout.CENTER);
- 
-        return contentPane;
-    }
- 
-
 
     public static void createAndShowGUI() throws IOException {
-
-        JFrame frame = new JFrame("Лабиринт Мёнина");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Reader demo = new Reader();
-        frame.setJMenuBar(demo.createMenuBar());
-        frame.setContentPane(demo.createContentPane());
-        frame.setSize(WIDTH, HEIGHT);
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+    	new Reader();
     }
 }

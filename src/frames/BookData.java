@@ -1,4 +1,4 @@
-package Frames;
+package frames;
 
 import java.awt.*;
 
@@ -7,8 +7,18 @@ import javax.swing.*;
 public class BookData extends JFrame{
 
 	private int PROPERTIES = 7;
-	private static int WIDTH = 410;
-	private static int HEIGHT = 290;
+	private int WIDTH = 410;
+	private int HEIGHT = 290;
+	
+	public BookData(){
+		JFrame frame = new JFrame("Данные о книге");
+		frame.setContentPane(createContentPane());
+        frame.setSize(WIDTH, HEIGHT);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+        frame.setAlwaysOnTop(true);
+        frame.setVisible(true);
+	}
 
     public Container createContentPane() {
     	
@@ -117,21 +127,11 @@ public class BookData extends JFrame{
           	 	 .addComponent(ok));
           
     //      pack();
-
            
         return contentPane;
     }
 
 	public static void createAndShowGUI() {
-
-        JFrame frame = new JFrame("Данные о книге");
-        BookData data = new BookData();
-        frame.setContentPane(data.createContentPane());
-        frame.setSize(WIDTH, HEIGHT);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-        frame.setAlwaysOnTop(true);
-        frame.setVisible(true);
-        
+        new BookData();
     }
 }
