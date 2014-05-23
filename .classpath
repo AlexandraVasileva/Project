@@ -4,5 +4,16 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="C:/Users/Александра/Downloads/ebookParser-1.3-src.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Александра/Downloads/ebookParser-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/xmleditorkit (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/org_apach_io/org.apache.commons.io-2.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/fluent-hc-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/httpclient-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/httpclient-cache-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/httpmime-4.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/JSON parser v1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Александра/workspace/Menus_firstTry/lib/for_web/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

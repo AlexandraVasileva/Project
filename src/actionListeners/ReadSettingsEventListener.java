@@ -6,13 +6,17 @@ import java.io.IOException;
 
 public class ReadSettingsEventListener implements ActionListener {
 
+	private frames.StartPage startframe;
+	private frames.Reader rframe;
+	
+	public ReadSettingsEventListener(frames.Reader rframe) {
+		this.rframe = rframe;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                try {
-					frames.ReadSettings.createAndShowGUI();
-				} catch (IOException e) {
-				}
+                new frames.ReadSettings(rframe);
             }
         });
 	}

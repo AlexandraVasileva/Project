@@ -4,13 +4,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
+import frames.Reader;
+
 public class ReaderToStartEventListener implements ActionListener {
+
+		private frames.Reader rframe;
+		private frames.StartPage sframe;
+
+		public ReaderToStartEventListener (frames.Reader rframe, frames.StartPage sframe) {
+			this.rframe = rframe;
+			this.sframe = sframe;
+		}
 
 	public void actionPerformed(ActionEvent e) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                frames.Reader.frame.setVisible(false);
-				frames.StartPage.frame.setVisible(true);
+                rframe.frame.setVisible(false);
+                
+                sframe.last.removeActionListener(sframe.lastListener);
+                sframe.lastListener = new actionListeners.LastEventListener(sframe, sframe.openbook.loadPreviousBook(sframe.saveway));
+                sframe.last.addActionListener(sframe.lastListener);
+                
+				sframe.frame.setVisible(true);
             }
         });
 	}

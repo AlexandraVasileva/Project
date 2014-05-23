@@ -3,14 +3,80 @@ package library;
 import java.util.*;
 import java.io.*;
 import books.*;
+import Mode.*;
 
 
 public class Library {
     ArrayList<Book> list = new ArrayList<>();
     String fileforsave = "\\books.dat";
+    String fileforprevbook = "\\previous.dat";
+    String fileformodes = "\\modes.dat";
+    ArrayList<Mode> modes = new ArrayList<>();
     
     public ArrayList<Book> getListOfBooks() {
         return list;
+    }
+    
+    public void savePreviousBook(String way, String adress){
+    	way += fileforprevbook;
+        FileOutputStream t;
+        try {
+            t = new FileOutputStream(way);
+        } catch (FileNotFoundException ex) {
+            try {
+                new File(way).createNewFile();
+            } catch (IOException ex1) {
+                System.out.println("Error: can't create file");
+                return;
+            }
+            try {t = new FileOutputStream(way);} catch (FileNotFoundException ex1){return;}
+        }
+        DataOutputStream savefile = new DataOutputStream(t);
+        try {
+            savefile.writeChars(adress);
+        } catch (IOException ex) {
+            System.out.println("Error: can't write a string");
+            return;
+        }
+        try {
+            savefile.writeChar('\n');
+        } catch (IOException ex) {
+            System.out.println("Error: can't write a string.");
+            return;
+        }
+    }
+    
+    public String loadPreviousBook(String way) {
+    	way += fileforprevbook;
+        FileInputStream t;
+        try {
+            t = new FileInputStream(way);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error: there is no such file");
+            return null;
+            }
+        DataInputStream savefile = new DataInputStream(t);
+        char c;
+        String temp;
+        try {
+            c = savefile.readChar();
+        } catch (EOFException ex) {
+            return null;
+        } catch (IOException ex1) {
+            System.out.println("Error: can't read a string.");
+            return null;
+        }
+        temp = "";
+        while(c != '\n') {
+            temp+=c;
+            try {
+                c = savefile.readChar();
+            } catch (IOException ex) {
+                System.out.println("Error: can't reade a string.");
+                return null;
+            }
+        }
+        return temp;
     }
     
     public void find(String way) {
@@ -23,7 +89,9 @@ public class Library {
             newbook.setName(listoffiles[i].substring(0, listoffiles[i].length() - 4));
             listoffiles[i] = way + "\\" + listoffiles[i];
             newbook.setAdress(listoffiles[i]);
-            list.add(newbook);
+            if(searchForBook(newbook.getAdress(), list, 4).size() == 0) {
+            	list.add(newbook);
+            	}
         }
         
         File[] listofdirs;
@@ -31,6 +99,25 @@ public class Library {
         for(i = 0; i < listofdirs.length; i++){
             find(listofdirs[i].getAbsolutePath());
         }   
+    }
+    
+    public void check() {
+    	int i;
+    	
+    	FileInputStream t;
+        String temp;
+        
+    	
+    	for(i = 0; i < list.size(); i++) {
+    		temp = list.get(i).getAdress();
+            try {
+                t = new FileInputStream(temp);
+            } catch (FileNotFoundException ex) {
+                //System.out.println("Error: there is no such file");
+                list.remove(i);
+                return;
+                }
+    	}
     }
     
     public void save(String way) {
@@ -436,7 +523,167 @@ public class Library {
                     }
                 }
                 break;
+            case 4:
+                for(i = 0; i < slist.size(); i++) {
+                    if(slist.get(i).getAdress().equals(str)) {
+                        t = slist.get(i);
+                        result.add(t);
+                    }
+                }
+                break;    
         }
         return result;
+    }
+    
+    public void saveModes(String way) {
+    	way += fileformodes;
+        FileOutputStream t;
+        try {
+            t = new FileOutputStream(way);
+        } catch (FileNotFoundException ex) {
+            try {
+                new File(way).createNewFile();
+            } catch (IOException ex1) {
+                System.out.println("Error: can't create file");
+                return;
+            }
+            try {t = new FileOutputStream(way);} catch (FileNotFoundException ex1){return;}
+        }
+        DataOutputStream savefile = new DataOutputStream(t);
+        int i;
+        for(i = 0; i < modes.size(); i++) {
+            try {
+                savefile.writeChars(modes.get(i).getName());
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string");
+                return;
+            }
+            try {
+                savefile.writeChar('\n');
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string.");
+                return;
+            }
+            try {
+                savefile.writeChars(modes.get(i).getFont());
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string");
+                return;
+            }
+            try {
+                savefile.writeChar('\n');
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string.");
+                return;
+            }
+            try {
+                savefile.writeInt(modes.get(i).getSizeOfType());
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string");
+                return;
+            }
+            try {
+                savefile.writeChar('\n');
+            } catch (IOException ex) {
+                System.out.println("Error: can't write a string.");
+                return;
+            }
+            
+        }
+
+    }
+    
+    public void loadModes(String way) {
+    	way += fileformodes;
+        FileInputStream t;
+        try {
+            t = new FileInputStream(way);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error: there is no such file");
+            return;
+            }
+        DataInputStream savefile = new DataInputStream(t);
+        
+        Mode next;
+        String temp;
+        char c;
+        int num;
+        
+        while(true) {
+            next = new Mode("");
+            try {
+                c = savefile.readChar();
+            } catch (EOFException ex) {
+                return;
+            } catch (IOException ex1) {
+                System.out.println("Error: can't read a string.");
+                return;
+            }
+            temp = "";
+            while(c != '\n') {
+                temp+=c;
+                try {
+                    c = savefile.readChar();
+                } catch (IOException ex) {
+                    System.out.println("Error: can't reade a string.");
+                    return;
+                }
+            }
+            next.setName(temp);
+            try {
+                c = savefile.readChar();
+            } catch (IOException ex) {
+                System.out.println("Error: can't read a string.");
+                return;
+            }
+            temp = "";
+            while(c != '\n') {
+                temp+=c;
+                try {
+                    c = savefile.readChar();
+                } catch (IOException ex) {
+                    System.out.println("Error: can't reade a string.");
+                    return;
+                }
+            }
+            next.setFont(temp);
+            try {
+                num = savefile.readInt();
+            } catch (IOException ex) {
+                System.out.println("Error: can't read a string.");
+                return;
+            }
+            next.setSizeOfType(num);
+            try {
+                savefile.readChar();
+            } catch (IOException ex) {
+                System.out.println("Error: can't read a string.");
+                return;
+            }
+            modes.add(next);
+        }
+
+    }
+
+    public void setDefaultModes(String way) {
+    	modes.clear();
+    	modes.add(new Mode("Художественный"));		//0
+    	modes.add(new Mode("Рабочий"));				//1
+    	modes.add(new Mode("Пользовательский"));	//2
+    	saveModes(way);
+    }
+    
+    public ArrayList<Mode> getListOfModes() {
+    	return modes;
+    }
+    
+    public Mode searchForMode(String str) {
+    	int i;
+    	for(i = 0; i < modes.size(); i++) {
+    		if(modes.get(i).getName().equals(str)) {
+    			return modes.get(i);
+    		}
+    	}
+    	return null;
     }
 }

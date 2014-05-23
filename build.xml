@@ -1,25 +1,40 @@
 <project>
+	<property file="ant.properties" />
+	<target name="clean">
+		<delete dir="build" />
+	</target>
 
-    <target name="clean">
-        <delete dir="build"/>
-    </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes"/>
-    </target>
+	<target name="compile">
+		<path id="class.path">
+			<fileset dir="lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+		<mkdir dir="build/classes" />
+		<javac includeantruntime="true" srcdir="src" destdir="build/classes" >
+			<classpath refid="class.path" />
+		</javac>
+	</target>
 
-    <target name="jar">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/Main.jar" basedir="build/classes">
-            <manifest>
-                <attribute name="Main-Class" value="Main.Main"/>
-            </manifest>
-        </jar>
-    </target>
+	<target name="jar">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/main/Main.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="main.Main" />
+			</manifest>
+		</jar>
+	</target>
 
-    <target name="run">
-        <java jar="build/jar/Main.jar" fork="true"/>
-    </target>
-
+	<target name="run">
+		<java jar="build/jar/main/Main.jar" fork="true" />
+	</target>
+	<target name="build-and-run">
+		<antcall target = "compile"/>
+		<antcall target = "jar"/>
+		<antcall target = "run"/>
+	</target>
+	<target name="COMEON">
+		<antcall target = "build-and-run"/>
+	</target>
 </project>

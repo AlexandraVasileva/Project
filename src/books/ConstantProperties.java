@@ -1,7 +1,7 @@
 package books;
 
 class ConstantProperties {
-    String adress;
+    String adress;		//4
     String name;        //0
     String author;      //1
     String series;      //2

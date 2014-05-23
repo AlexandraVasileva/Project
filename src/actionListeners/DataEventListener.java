@@ -2,13 +2,26 @@ package actionListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+
+import frames.StartPage;
 
 public class DataEventListener implements ActionListener {
+	
+	private frames.StartPage startframe;
+	private frames.Reader rframe;
+	
+	public DataEventListener(frames.StartPage startframe, frames.Reader rframe) {
+		this.startframe = startframe;
+		this.rframe = rframe;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                frames.BookData.createAndShowGUI();
+                new frames.BookData(rframe);
             }
         });
 	}

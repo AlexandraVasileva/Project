@@ -9,13 +9,25 @@ import javax.swing.*;
 public class ReadSettings extends JFrame{
 
 	private int PROPERTIES = 7;
-	private int WIDTH = 420;
-	private int HEIGHT = 290;
-	private int FIELD = 20;
+	private int WIDTH = 270;
+	private int HEIGHT = 260;
+	private int FIELD = 5;
 	private int GAP = 30;
+	private Color lightgrey = new Color(206, 206, 206);
+	private Color lightlightgrey = new Color(224, 218, 230);
+	public JFrame frame = new JFrame("Настройки чтения");
 	
-	public ReadSettings(){
-		JFrame frame = new JFrame("Настройки чтения");
+	public JComboBox mode;
+	public JTextField size;
+	public JComboBox font;
+	
+	public frames.Reader rframe;
+	
+	private String[] modes = {"Художественный", "Рабочий", "Пользовательский"};
+	private String[] fonts = {"serif", "sansserif", "monospaced"};
+	
+	public ReadSettings(frames.Reader rframe){
+		this.rframe = rframe;
 		frame.setContentPane(createContentPane());
         frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);
@@ -23,24 +35,45 @@ public class ReadSettings extends JFrame{
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
 	}
+	
+	private void setLabelLF(JComponent component){
+		component.setBackground(lightgrey);
+		component.setForeground(Color.darkGray);
+		component.setFont(new Font("monospaced", Font.PLAIN, 16));
+	}
+	
+	private void setFieldLF(JComponent component){
+		component.setBackground(lightlightgrey);
+		component.setForeground(Color.darkGray);
+		component.setFont(new Font("sansserif", Font.PLAIN, 12));
+	}
 
     public Container createContentPane() {
     	
         JPanel contentPane = new JPanel();
+        contentPane.setBackground(lightgrey);
         
         JLabel modeLabel = new JLabel("Режим");
-        JTextField mode = new JTextField("", FIELD);
+        setLabelLF(modeLabel);
+		
+        mode = new JComboBox(modes);
+        setFieldLF(mode);
         
         JLabel sizeLabel = new JLabel("Кегль");
-        JTextField size = new JTextField("", FIELD);
+        setLabelLF(sizeLabel);
+		
+        size = new JTextField("", FIELD);
+        setFieldLF(size);
         
         JLabel fontLabel = new JLabel("Шрифт");
-        JTextField font = new JTextField("", FIELD);
-        
-        JLabel operationLabel = new JLabel("Действие при выделении");
-        JTextField operation = new JTextField("", FIELD);
+        setLabelLF(fontLabel);
+		
+        font = new JComboBox(fonts);
+        setFieldLF(font);
         
         JButton ok = new JButton("OK");
+        setLabelLF(ok);
+        ok.addActionListener(new actionListeners.SettingsOkEventListener(this, rframe));
 
         GroupLayout layout = new GroupLayout(contentPane);
         contentPane.setLayout(layout);
@@ -52,28 +85,34 @@ public class ReadSettings extends JFrame{
         		layout.createParallelGroup(GroupLayout.Alignment.CENTER)
         			
         			.addGroup(layout.createSequentialGroup()
+        					
+        				.addGap(GAP)
 
         				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         					.addComponent(modeLabel, GroupLayout.PREFERRED_SIZE,
         						GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addGap(GAP)
         					.addComponent(sizeLabel)
-        					.addComponent(fontLabel)
-        					.addComponent(operationLabel))
+        					.addComponent(fontLabel))
+        				
+        				.addGap(GAP)
         				
         				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         					.addComponent(mode, GroupLayout.PREFERRED_SIZE,
                 				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 			.addGap(GAP)
                 			.addComponent(size)
-                			.addComponent(font)
-                			.addComponent(operation)))
+                			.addComponent(font))
+                		
+                		 .addGap(GAP))
                				
                		.addGap(GAP)
                		.addComponent(ok));
 
          layout.linkSize(SwingConstants.HORIZONTAL,
-       		  new java.awt.Component[]{mode, size, font, operation});
+       		  new java.awt.Component[]{mode, size, font});
+         layout.linkSize(SwingConstants.VERTICAL,
+          		  new java.awt.Component[]{mode, size, font, modeLabel, sizeLabel, fontLabel});
           
           layout.setVerticalGroup(
 
@@ -95,21 +134,14 @@ public class ReadSettings extends JFrame{
         				.addComponent(fontLabel, GroupLayout.PREFERRED_SIZE,
         								  GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
           				.addComponent(font))
-        
-          	   	 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        				.addComponent(operationLabel, GroupLayout.PREFERRED_SIZE,
-        								  GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)			
-        				.addComponent(operation))
           
+              	 .addGap(GAP)
               	 .addGap(GAP)
           	 	 .addComponent(ok));
           
-  //        pack();
+          //pack();
            
         return contentPane;
     }
 
-	public static void createAndShowGUI() throws IOException {
-        new ReadSettings();
-    }
 }
