@@ -142,7 +142,7 @@ public class WorkWithWeb {
 			   
 			   System.out.println(workerWithWeb.dictionary("en", "ru", "happy"));
 			   
-			   workerWithWeb.SearchInfo("суворовв");
+			   workerWithWeb.SearchInfo("Jesus");
 		   }
 		   else{
 			   System.out.println("no Internet Connection");
