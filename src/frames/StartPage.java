@@ -53,13 +53,12 @@ public class StartPage extends JFrame{
         
         JLabel welcome = new JLabel("Добро пожаловать в вашу домашнюю библиотеку");
         welcome.setFont(new Font("serif", Font.ITALIC, 15));
-        JLabel title = new JLabel("OpenBook Home Library ver 20.05");
+        JLabel title = new JLabel("OpenBook Home Library ver 1.0");
         title.setFont(new Font("serif", Font.ITALIC, 22));
         
         last = new JButton("К последнему чтению");
         lastListener = new actionListeners.LastEventListener(this, openbook.loadPreviousBook(saveway));
         last.addActionListener(lastListener); // StartPage to Reader (last reading)
-        //last.addActionListener(new actionListeners.LastEventListener(this, "TestLibrary\\Племянник чародея.txt"));
         
         last.setBorderPainted(false);
         last.setFocusPainted(false);

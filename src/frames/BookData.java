@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class BookData extends JFrame{
 
-	private int PROPERTIES = 7;
 	private int WIDTH = 400;
 	private int HEIGHT = 210;
 	private Color lightgrey = new Color(206, 206, 206);
@@ -142,8 +141,6 @@ public class BookData extends JFrame{
               	 .addGap(20)
 
               	.addComponent(ok));
-          
-    //      pack();
            
         return contentPane;
     }

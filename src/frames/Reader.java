@@ -2,9 +2,6 @@ package frames;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -80,49 +77,7 @@ public class Reader  extends JFrame{
         menuReadSet.setBorderPainted(false);
         setLabelLF(menuReadSet);
         menuBar.add(menuReadSet);
-        
-        //BOOK TOOLS
-        JMenu menuBookTools = new JMenu("Инструменты чтения");     
-        menuBookTools.setMnemonic(KeyEvent.VK_C);
-        setLabelLF(menuBookTools);
-        menuBar.add(menuBookTools);
-        
-        JMenuItem menuItemBookmark = new JMenuItem("Добавить закладку");
-        setFieldLF(menuItemBookmark);
-        menuItemBookmark.addActionListener(new actionListeners.NewMarkEventListener());
-        menuBookTools.add(menuItemBookmark);
-        
-        JMenuItem menuItemNote = new JMenuItem("Добавить заметку");
-        setFieldLF(menuItemNote);
-        menuItemNote.addActionListener(new actionListeners.NewNoteEventListener());
-        menuBookTools.add(menuItemNote);  
 
-        //BOOK NAVIGATION
-        JMenu menuBookNav = new JMenu("Навигация по книге");     
-        menuBookNav.setMnemonic(KeyEvent.VK_D);
-        setLabelLF(menuBookNav);
-        menuBar.add(menuBookNav);
-        
-        JMenuItem menuItemBeginning = new JMenuItem("В начало");
-        setFieldLF(menuItemBeginning);
-        menuItemBeginning.addActionListener(new actionListeners.GoToStartEventListener(this.contentPane));
-        menuBookNav.add(menuItemBeginning);
-        
-        JMenuItem menuItemEnd = new JMenuItem("В конец");
-        setFieldLF(menuItemEnd);
-        menuItemEnd.addActionListener(new actionListeners.GoToEndEventListener(this.contentPane));
-        menuBookNav.add(menuItemEnd);
-        
-        JMenuItem menuItemSearch = new JMenuItem("Поиск по книге");
-        setFieldLF(menuItemSearch);
-        menuItemSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.ALT_MASK));
-        menuItemSearch.addActionListener(new actionListeners.TextSearchEventListener());
-        menuBookNav.add(menuItemSearch);
-        
-        JMenuItem menuItemBookmarkGo = new JMenuItem("Перейти к закладке...");
-        setFieldLF(menuItemBookmarkGo);
-        menuBookNav.add(menuItemBookmarkGo);
-        menuItemBookmarkGo.addActionListener(new actionListeners.GoToMarkEventListener());
         
         //LIBRARY NAVIGATION
         JMenu menuLibNav = new JMenu("Навигация по библиотеке");     

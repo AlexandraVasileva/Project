@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -21,19 +20,19 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import Mode.Mode;
-import WorkWithInternet.WorkWithWeb;
+import mode.Mode;
+import workWithInternet.WorkWithWeb;
 import readFromFile.ReadTextFromFile;
 
 public class ReaderContentPane extends JPanel {
 
 	private int WIDTH = 1000;
 	private int HEIGHT = 500;
-	private String selectedText = null;
+	public String selectedText = null;
 	public JTextPane output;
 	private JScrollPane scrollPane;
 	public JPanel contentPane;
-	private frames.Reader rframe;
+	public frames.Reader rframe;
 	public int nummode;
 
 	public ReaderContentPane(frames.Reader rframe, String bookname) throws IOException,
@@ -48,46 +47,11 @@ public class ReaderContentPane extends JPanel {
 		Mode mode;
 		nummode = rframe.startframe.openbook.searchForBook(rframe.bookname, rframe.startframe.openbook.getListOfBooks(), 4).get(0).getMode();
 		mode = rframe.startframe.openbook.getListOfModes().get(nummode);
-		//mode=new Mode("Sirif", 10);
+
 		output.setFont(new Font(mode.getFont(), Font.PLAIN, mode.getSizeOfType() ));
 		add(BorderLayout.CENTER, output);
 
-		output.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				WorkWithWeb workerWithWeb = new WorkWithWeb();
-				int key = e.getKeyCode();
-				try {
-					if (key == KeyEvent.VK_D) {
-						
-						// Add a translation window
-
-						System.out.println(workerWithWeb.dictionary("ru", "en",
-								selectedText));
-						
-						//JOptionPane.showMessageDialog(e.getSource(), workerWithWeb.dictionary("ru", "en", selectedText));
-						
-						selectedText = null;
-					} else {
-						if (key == KeyEvent.VK_W) {
-							workerWithWeb.searchInfo(selectedText);
-							selectedText = null;
-						} else {
-							if (key == KeyEvent.VK_G) {
-								workerWithWeb.google(selectedText);
-							}
-						}
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				} catch (URISyntaxException e1) {
-					e1.printStackTrace();
-				} catch (ParserConfigurationException e1) {
-					e1.printStackTrace();
-				} catch (SAXException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		output.addKeyListener(new actionListeners.OutputKeyListener(this));
 
 		output.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent me) {
@@ -121,7 +85,7 @@ public class ReaderContentPane extends JPanel {
 			}
 		}
 		
-		output.setText(text); // HERE THE NAME OF THE BOOK
+		output.setText(text);
 
 		output.setCaretPosition(0);
 		output.setEditable(false);

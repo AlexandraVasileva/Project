@@ -2,8 +2,9 @@ package library;
 
 import java.util.*;
 import java.io.*;
+
 import books.*;
-import Mode.*;
+import mode.*;
 
 
 public class Library {
@@ -13,10 +14,12 @@ public class Library {
     String fileformodes = "\\modes.dat";
     ArrayList<Mode> modes = new ArrayList<>();
     
+    //returns all books
     public ArrayList<Book> getListOfBooks() {
         return list;
     }
     
+    //save the last read book in way\\previous.dat
     public void savePreviousBook(String way, String adress){
     	way += fileforprevbook;
         FileOutputStream t;
@@ -36,16 +39,34 @@ public class Library {
             savefile.writeChars(adress);
         } catch (IOException ex) {
             System.out.println("Error: can't write a string");
+            try {
+				t.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
             return;
         }
         try {
             savefile.writeChar('\n');
         } catch (IOException ex) {
             System.out.println("Error: can't write a string.");
+            try {
+				t.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
             return;
         }
+        try {
+			t.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return;
+        
     }
     
+    //load the last read book from way\\previous.dat
     public String loadPreviousBook(String way) {
     	way += fileforprevbook;
         FileInputStream t;
@@ -61,9 +82,19 @@ public class Library {
         try {
             c = savefile.readChar();
         } catch (EOFException ex) {
-            return null;
+        	try {
+				t.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        	return null;
         } catch (IOException ex1) {
             System.out.println("Error: can't read a string.");
+            try {
+				t.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
             return null;
         }
         temp = "";
@@ -73,12 +104,23 @@ public class Library {
                 c = savefile.readChar();
             } catch (IOException ex) {
                 System.out.println("Error: can't reade a string.");
+                try {
+    				t.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
                 return null;
             }
         }
+        try {
+			t.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return temp;
     }
     
+    //find all txt's and fb2's from way
     public void find(String way) {
         File path = new File(way);
         int i;
@@ -101,6 +143,7 @@ public class Library {
         }   
     }
     
+    //check, do the all books from list exist
     public void check() {
     	int i;
     	
@@ -113,13 +156,13 @@ public class Library {
             try {
                 t = new FileInputStream(temp);
             } catch (FileNotFoundException ex) {
-                //System.out.println("Error: there is no such file");
                 list.remove(i);
                 return;
                 }
     	}
     }
     
+    //save the list of books in way\\books.dat
     public void save(String way) {
         way += fileforsave;
         FileOutputStream t;
@@ -223,8 +266,15 @@ public class Library {
                 return;
             }
         }
+        try {
+			t.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return;
     }
     
+    //load the list of books from way\\books.dat
     public void load(String way) {
         way += fileforsave;
         FileInputStream t;
@@ -365,6 +415,7 @@ public class Library {
         }
     }
     
+    //returns all possible values of field with number = code from oldlist
     public ArrayList<String> listOfSmth(int code, ArrayList<Book> oldlist){
         ArrayList<String> result = new ArrayList<>();
         int i;
@@ -437,35 +488,36 @@ public class Library {
         return result;
     }
     
+    //returns list of books with (field with number = code) = str from oldlist
     public ArrayList<Book> shortList(int code, String str, ArrayList<Book> oldlist) {
         ArrayList<Book> shortlist = new ArrayList<>();
         int i;
         switch(code) {
             case 0:
-                for(i = 0; i < list.size(); i++) {
-                    if(list.get(i).getName().equals(str)) {
-                        shortlist.add(list.get(i));
+                for(i = 0; i < oldlist.size(); i++) {
+                    if(oldlist.get(i).getName().equals(str)) {
+                        shortlist.add(oldlist.get(i));
                     }
                 }
                 break;
             case 1:
-                for(i = 0; i < list.size(); i++) {
-                    if(list.get(i).getAuthor().equals(str)) {
-                        shortlist.add(list.get(i));
+                for(i = 0; i < oldlist.size(); i++) {
+                    if(oldlist.get(i).getAuthor().equals(str)) {
+                        shortlist.add(oldlist.get(i));
                     }
                 }
                 break;
             case 2:
-                for(i = 0; i < list.size(); i++) {
-                    if(list.get(i).getSeries().equals(str)) {
-                        shortlist.add(list.get(i));
+                for(i = 0; i < oldlist.size(); i++) {
+                    if(oldlist.get(i).getSeries().equals(str)) {
+                        shortlist.add(oldlist.get(i));
                     }
                 }
                 break;
             case 3:
-                for(i = 0; i < list.size(); i++) {
-                    if(list.get(i).getGenre().equals(str)) {
-                        shortlist.add(list.get(i));
+                for(i = 0; i < oldlist.size(); i++) {
+                    if(oldlist.get(i).getGenre().equals(str)) {
+                        shortlist.add(oldlist.get(i));
                     }
                 }
                 break;
@@ -473,6 +525,7 @@ public class Library {
         return shortlist;
     }
     
+    //general search
     public ArrayList<Book> searchForBook(String str, ArrayList<Book> slist) {
         int i;
         Book t;
@@ -486,6 +539,7 @@ public class Library {
         return result;
     }
     
+    //search by field with number = code
     public ArrayList<Book> searchForBook(String str, ArrayList<Book> slist, int code) {
         int i;
         Book t;
@@ -535,6 +589,7 @@ public class Library {
         return result;
     }
     
+    //save modes
     public void saveModes(String way) {
     	way += fileformodes;
         FileOutputStream t;
@@ -593,6 +648,7 @@ public class Library {
 
     }
     
+    //load modes
     public void loadModes(String way) {
     	way += fileformodes;
         FileInputStream t;
@@ -664,7 +720,8 @@ public class Library {
         }
 
     }
-
+    
+    //set default modes
     public void setDefaultModes(String way) {
     	modes.clear();
     	modes.add(new Mode("’удожественный"));		//0
@@ -673,10 +730,12 @@ public class Library {
     	saveModes(way);
     }
     
+    //returns list of modes
     public ArrayList<Mode> getListOfModes() {
     	return modes;
     }
     
+    //search for mode with name  = str
     public Mode searchForMode(String str) {
     	int i;
     	for(i = 0; i < modes.size(); i++) {

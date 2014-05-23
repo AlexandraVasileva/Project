@@ -1,11 +1,8 @@
 package actionListeners;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-
-import frames.*;
 
 public class CancelEventListener {
 	
@@ -15,7 +12,7 @@ public class CancelEventListener {
 		this.frame = frame;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) throws Exception{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 frame.setVisible(false);

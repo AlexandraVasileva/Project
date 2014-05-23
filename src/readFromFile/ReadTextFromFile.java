@@ -48,7 +48,7 @@ public class ReadTextFromFile {
 
 			String s;
 			StringBuilder sb = new StringBuilder();
-
+			buffered_reader.readLine();
 			while (((s = buffered_reader.readLine()) != null))
 				sb.append(s + "\n");
 
@@ -76,10 +76,7 @@ public class ReadTextFromFile {
 
 					String path = worker.setImage(filename, num);
 
-					int temp = numOfPictures--;
-					while (massivOfImages[temp].equals(null)) {
-						temp--;
-					}
+					
 					String HTML = "<p> <img src=\"file:images/" + path
 							+ "\">\n</p>";
 
@@ -89,8 +86,7 @@ public class ReadTextFromFile {
 					d = sb.toString();
 				}
 				stream.close();
-				// Save massiv!!
-			}
+				}
 			return d;
 		} catch (Exception e) {
 			e.printStackTrace();

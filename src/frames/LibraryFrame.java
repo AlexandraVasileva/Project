@@ -1,15 +1,12 @@
 package frames;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 import java.util.*;
 
 import javax.swing.*;
 
-import library.*;
 import books.*;
-import frames.*;
 
 public class LibraryFrame  extends JFrame{
 	
@@ -68,6 +65,7 @@ public class LibraryFrame  extends JFrame{
 		try {
 			frame.setContentPane(createContentPane());
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(true);

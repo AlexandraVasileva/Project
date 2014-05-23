@@ -1,11 +1,7 @@
 package actionListeners;
 
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JTextField;
 
 import books.*;
 
@@ -24,6 +20,8 @@ private frames.Reader rframe;
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 
+            	//Saving the book data
+            	
             	Book curbook = rframe.startframe.openbook.searchForBook(rframe.bookname, rframe.startframe.openbook.getListOfBooks(), 4).get(0);
             	String temp;
             	temp = dframe.author.getText();

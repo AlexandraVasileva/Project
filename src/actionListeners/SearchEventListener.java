@@ -2,9 +2,6 @@ package actionListeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
-import javax.swing.JFrame;
 
 public class SearchEventListener implements ActionListener {
 

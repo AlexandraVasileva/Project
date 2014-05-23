@@ -1,14 +1,14 @@
 package actionListeners;
 
-import java.io.IOException;
 import java.util.*;
 
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import frames.LibraryFrame;
 import books.*;
+
+//Library List
 
 public class TypeSelectionListener implements ListSelectionListener{
 	

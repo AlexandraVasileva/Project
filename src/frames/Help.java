@@ -3,22 +3,17 @@ package frames;
 import java.awt.BorderLayout;
 import java.io.IOException;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import readFromFile.ReadTextFromFile;
 
 public class Help extends JFrame{
 	
 	public JFrame frame;
-
 	
 	private int WIDTH = 1000;
 	private int HEIGHT = 500;
@@ -38,13 +33,10 @@ public class Help extends JFrame{
 		JTextPane output = new JTextPane();
 
         try {
-			try {
-				ReadTextFromFile reader=new ReadTextFromFile();
-				output.setText(reader.read(help));
-			} catch (ParserConfigurationException | SAXException e) {
-				e.printStackTrace();
-			}
+			ReadTextFromFile reader=new ReadTextFromFile();
+			output.setText(reader.readTxt(help));
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
         output.setEditable(false);
         

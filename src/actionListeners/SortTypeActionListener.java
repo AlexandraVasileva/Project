@@ -12,7 +12,8 @@ public class SortTypeActionListener implements ActionListener {
 	private frames.LibraryFrame frame;
 	private frames.StartPage sframe;
 
-
+// Library ComboBox
+	
 	public SortTypeActionListener(LibraryFrame frame, frames.StartPage sframe) {
 		this.frame = frame;
 		this.sframe = sframe;
@@ -30,7 +31,7 @@ public class SortTypeActionListener implements ActionListener {
 	        }
 	        
 	        frame.displayedType = code;
-			String[] list1 = sframe.openbook.listOfSmth(code, frame.currentlist).toArray(new String[0]); // just a test
+			String[] list1 = sframe.openbook.listOfSmth(code, frame.currentlist).toArray(new String[0]);
 			frame.setList(list1);
 			
 	    }

@@ -3,10 +3,9 @@ package actionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
-
 import frames.LibraryFrame;
+
+//Back to the beginning of the library
 
 public class ResetEventListener implements ActionListener{
 	
